@@ -1,6 +1,6 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/core/components/ui/sidebar"
 import { PrivateRoutes } from "@/core/enums/routes"
-import { LayoutDashboard, ScanEye, Settings, User } from "lucide-react"
+import { LayoutDashboard, Ruler, ScanEye, Settings, User } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const items = [
@@ -18,6 +18,11 @@ const items = [
     title: "Settings",
     url: PrivateRoutes.SETTINGS,
     icon: Settings,
+  },
+  {
+    title: "Unit Measures",
+    url: PrivateRoutes.UNIT_MEASURES,
+    icon: Ruler,
   },
   {
     title: "Users",
