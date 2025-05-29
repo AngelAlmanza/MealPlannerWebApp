@@ -12,6 +12,8 @@ const Login = lazy(() => import("@/modules/auth/pages/Login"));
 const Dashboard = lazy(() => import("@/modules/dashboard/pages/Dashboard"));
 const Roles = lazy(() => import("@/modules/roles/pages/Roles"));
 const Settings = lazy(() => import("@/modules/settings/pages/Settings"));
+const Ingredients = lazy(() => import("@/modules/ingredients/pages/IngredientsPage"));
+const IngredientsForm = lazy(() => import("@/modules/ingredients/pages/IngredientsForm"));
 const UnitMeasures = lazy(() => import("@/modules/unit-measures/pages/UnitMeasures"));
 const UnitMeasuresForm = lazy(() => import("@/modules/unit-measures/pages/UnitMeasuresForm"));
 const Users = lazy(() => import("@/modules/users/pages/Users"));
@@ -43,6 +45,18 @@ function App() {
               <Route
                 path={PrivateRoutes.SETTINGS}
                 element={<Settings />}
+              />
+              <Route
+                path={PrivateRoutes.INGREDIENTS}
+                element={<Ingredients />}
+              />
+              <Route
+                path={PrivateRoutes.INGREDIENTS_CREATE}
+                element={<IngredientsForm />}
+              />
+              <Route
+                path={PrivateRoutes.INGREDIENTS_EDIT}
+                element={<IngredientsForm />}
               />
               <Route
                 path={PrivateRoutes.UNIT_MEASURES}
