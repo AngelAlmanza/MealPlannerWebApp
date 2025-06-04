@@ -14,6 +14,9 @@ const Roles = lazy(() => import("@/modules/roles/pages/Roles"));
 const Settings = lazy(() => import("@/modules/settings/pages/Settings"));
 const Ingredients = lazy(() => import("@/modules/ingredients/pages/IngredientsPage"));
 const IngredientsForm = lazy(() => import("@/modules/ingredients/pages/IngredientsForm"));
+const RecipesPage = lazy(() => import("@/modules/recipes/pages/RecipesPage"));
+const RecipesForm = lazy(() => import("@/modules/recipes/pages/RecipesForm"));
+const RecipeDetail = lazy(() => import("@/modules/recipes/pages/RecipeDetail"));
 const UnitMeasures = lazy(() => import("@/modules/unit-measures/pages/UnitMeasures"));
 const UnitMeasuresForm = lazy(() => import("@/modules/unit-measures/pages/UnitMeasuresForm"));
 const Users = lazy(() => import("@/modules/users/pages/Users"));
@@ -57,6 +60,22 @@ function App() {
               <Route
                 path={PrivateRoutes.INGREDIENTS_EDIT}
                 element={<IngredientsForm />}
+              />
+              <Route
+                path={PrivateRoutes.RECIPES}
+                element={<RecipesPage />}
+              />
+              <Route
+                path={PrivateRoutes.RECIPES_CREATE}
+                element={<RecipesForm />}
+              />
+              <Route
+                path={PrivateRoutes.RECIPES_EDIT}
+                element={<RecipesForm />}
+              />
+              <Route
+                path={PrivateRoutes.RECIPES_VIEW}
+                element={<RecipeDetail />}
               />
               <Route
                 path={PrivateRoutes.UNIT_MEASURES}
