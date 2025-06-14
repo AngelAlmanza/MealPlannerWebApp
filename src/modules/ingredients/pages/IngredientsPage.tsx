@@ -10,7 +10,7 @@ import { SystemBreadcrumb } from "@/modules/shared/components/SystemBreadcrumb"
 import { SystemBreadcrumbLink } from "@/modules/shared/components/SystemBreadcrumbLink"
 import { BreadcrumbLinkType } from "@/modules/shared/types/BreadcrumbLinkType"
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { CirclePlus, Funnel } from "lucide-react"
+import { CirclePlus, Ellipsis } from "lucide-react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Ingredient } from "../interfaces"
@@ -52,7 +52,7 @@ function IngredientsPage() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Funnel />
+                <Ellipsis />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -107,10 +107,6 @@ function IngredientsPage() {
       <div className="w-full flex items-center justify-end gap-4 mb-4">
         <Button onClick={handleAdd}>
           <CirclePlus /> Crear Ingrediente
-        </Button>
-
-        <Button variant="secondary" size="icon">
-          <Funnel />
         </Button>
       </div>
 

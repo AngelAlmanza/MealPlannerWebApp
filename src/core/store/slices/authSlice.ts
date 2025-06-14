@@ -5,7 +5,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuthenticated: localStorage.getItem("isAuthenticated") === "true" || false,
+  isAuthenticated: true,
+  // isAuthenticated: localStorage.getItem("isAuthenticated") === "true" || false,
 };
 
 export const AuthSlice = createSlice({

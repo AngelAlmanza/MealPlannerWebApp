@@ -1,6 +1,6 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/core/components/ui/sidebar"
 import { PrivateRoutes } from "@/core/enums/routes"
-import { ChefHat, LayoutDashboard, Ruler, ScanEye, Settings, ShoppingBasket, User } from "lucide-react"
+import { ChefHat, LayoutDashboard, Ruler, ShoppingBasket } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const items = [
@@ -8,16 +8,6 @@ const items = [
     title: "Dashboard",
     url: PrivateRoutes.DASHBOARD,
     icon: LayoutDashboard,
-  },
-  {
-    title: "Roles",
-    url: PrivateRoutes.ROLES,
-    icon: ScanEye,
-  },
-  {
-    title: "Configuración",
-    url: PrivateRoutes.SETTINGS,
-    icon: Settings,
   },
   {
     title: "Ingredientes",
@@ -33,11 +23,6 @@ const items = [
     title: "Unidades de Medida",
     url: PrivateRoutes.UNIT_MEASURES,
     icon: Ruler,
-  },
-  {
-    title: "Usuarios",
-    url: PrivateRoutes.USERS,
-    icon: User,
   },
 ]
 
