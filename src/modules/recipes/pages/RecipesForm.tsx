@@ -1,6 +1,8 @@
 import { Button } from "@/core/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/core/components/ui/form"
 import { Input } from "@/core/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/core/components/ui/select"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/core/components/ui/table"
 import { Textarea } from "@/core/components/ui/textarea"
 import { PrivateRoutes } from "@/core/enums/routes"
 import { PrivateLayout } from "@/core/layouts/PrivateLayout"
@@ -9,10 +11,12 @@ import { SystemBreadcrumb } from "@/modules/shared/components/SystemBreadcrumb"
 import { SystemBreadcrumbLink } from "@/modules/shared/components/SystemBreadcrumbLink"
 import { BreadcrumbLinkType } from "@/modules/shared/types/BreadcrumbLinkType"
 import { useRecipesForm } from "../hooks/useRecipesForm"
+import { CirclePlus } from "lucide-react"
 
 function RecipesForm() {
   const { selectedRecipe, isRecipesLoading } = useAppSelector((state) => state.recipes)
-  const { form, onSubmit, handleCancel } = useRecipesForm()
+  const { ingredients } = useAppSelector((state) => state.ingredients)
+  const { form, fields, onSubmit, handleCancel, handleAddIngredient, remove } = useRecipesForm()
 
   const breadcrumbLinks: BreadcrumbLinkType[] = [
     { label: "Dashboard", href: PrivateRoutes.DASHBOARD },
@@ -107,12 +111,96 @@ function RecipesForm() {
               </FormItem>
             )}
           />
+
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-semibold">Ingredientes</h3>
+            <Button type="button" onClick={handleAddIngredient} size="icon">
+              <CirclePlus />
+            </Button>
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Ingrediente</TableHead>
+                <TableHead>Cantidad</TableHead>
+                <TableHead>Acciones</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {
+                fields.map((item, index) => (
+                  <TableRow key={item.id + index}>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`ingredients.${index}.ingredientId`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecciona un ingrediente" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {
+                                  ingredients.map((ingredient) => (
+                                    <SelectItem key={ingredient.id} value={ingredient.id.toString()}>
+                                      {ingredient.name} ({ingredient.unitMeasure.name})
+                                    </SelectItem>
+                                  ))
+                                }
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`ingredients.${index}.quantity`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="number"
+                                min={1}
+                                max={1000}
+                                placeholder="Cantidad"
+                                {...form.register(`ingredients.${index}.quantity`, { valueAsNumber: true })}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => remove(index)}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+
+          {/* ...botones de acción... */}
           <div className="flex justify-end gap-2">
             <Button type="button" variant="secondary" onClick={handleCancel} disabled={isRecipesLoading}>
               Cancelar
             </Button>
             <Button type="submit" variant="default" disabled={isRecipesLoading}>
-              Crear
+              {selectedRecipe ? "Actualizar" : "Crear"}
             </Button>
           </div>
         </form>
