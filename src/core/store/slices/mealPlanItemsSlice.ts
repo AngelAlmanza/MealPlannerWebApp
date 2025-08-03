@@ -1,21 +1,28 @@
-import { MealPlanItem } from '@/modules/dashboard/interfaces';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { createMealPlanItem, getMealPlanItems } from '../thunks/mealPlanItemThunks';
+import { MealPlanItem } from "@/modules/dashboard/interfaces";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createMealPlanItem,
+  deleteMealPlanItem,
+  getMealPlanItems,
+  updateMealPlanItem,
+} from "../thunks/mealPlanItemThunks";
 
 interface MealPlanItemsState {
   mealPlanItems: MealPlanItem[];
   selectedMealPlanItem: MealPlanItem | null;
   isMealPlanItemsLoading: boolean;
+  isDrawerOpen: boolean;
 }
 
 const initialState: MealPlanItemsState = {
   mealPlanItems: [],
   selectedMealPlanItem: null,
   isMealPlanItemsLoading: false,
+  isDrawerOpen: false,
 };
 
 export const MealPlanItemsSlice = createSlice({
-  name: 'mealPlanItems',
+  name: "mealPlanItems",
   initialState,
   reducers: {
     setIsMealPlanItemsLoading: (state, action: PayloadAction<boolean>) => {
@@ -24,8 +31,14 @@ export const MealPlanItemsSlice = createSlice({
     setMealPlanItems: (state, action: PayloadAction<MealPlanItem[]>) => {
       state.mealPlanItems = action.payload;
     },
-    setSelectedMealPlanItem: (state, action: PayloadAction<MealPlanItem | null>) => {
+    setSelectedMealPlanItem: (
+      state,
+      action: PayloadAction<MealPlanItem | null>
+    ) => {
       state.selectedMealPlanItem = action.payload;
+    },
+    setIsDrawerOpen: (state, action: PayloadAction<boolean>) => {
+      state.isDrawerOpen = action.payload;
     },
   },
   extraReducers(builder) {
@@ -49,8 +62,39 @@ export const MealPlanItemsSlice = createSlice({
     builder.addCase(createMealPlanItem.fulfilled, (state) => {
       state.isMealPlanItemsLoading = false;
     });
+
+    builder.addCase(updateMealPlanItem.pending, (state) => {
+      state.isMealPlanItemsLoading = true;
+    });
+    builder.addCase(updateMealPlanItem.rejected, (state) => {
+      state.isMealPlanItemsLoading = false;
+    });
+    builder.addCase(updateMealPlanItem.fulfilled, (state) => {
+      state.isMealPlanItemsLoading = false;
+    });
+
+    builder.addCase(deleteMealPlanItem.pending, (state) => {
+      state.isMealPlanItemsLoading = true;
+    });
+    builder.addCase(deleteMealPlanItem.rejected, (state) => {
+      state.isMealPlanItemsLoading = false;
+    });
+    builder.addCase(deleteMealPlanItem.fulfilled, (state, action) => {
+      state.isMealPlanItemsLoading = false;
+      state.mealPlanItems = state.mealPlanItems.filter(
+        (item) => item.id !== action.payload
+      );
+      if (state.selectedMealPlanItem?.id === action.payload) {
+        state.selectedMealPlanItem = null;
+      }
+    });
   },
 });
 
-export const { setIsMealPlanItemsLoading, setMealPlanItems, setSelectedMealPlanItem  } = MealPlanItemsSlice.actions;
+export const {
+  setIsMealPlanItemsLoading,
+  setMealPlanItems,
+  setSelectedMealPlanItem,
+  setIsDrawerOpen,
+} = MealPlanItemsSlice.actions;
 export default MealPlanItemsSlice.reducer;

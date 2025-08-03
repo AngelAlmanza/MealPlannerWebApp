@@ -10,16 +10,17 @@ import { cn } from "@/core/lib/utils"
 import { useAppSelector } from "@/core/store/hooks"
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
-import { CalendarIcon, Plus } from "lucide-react"
+import { CalendarIcon, Plus, Trash2, X } from "lucide-react"
 import { MEAL_TYPES } from "../constants/mealTypes"
 import { useAddMealItem } from "../hooks/useAddMealItem"
 
 export const AddMealItem = () => {
-  const { form, recipieValue, submitBtnRef, onSubmit, handleBtnSubmitClick } = useAddMealItem();
+  const { form, recipieValue, submitBtnRef, onSubmit, handleBtnSubmitClick, handleDrawerClose, handleDeleteMealItem } = useAddMealItem();
+  const { isDrawerOpen, selectedMealPlanItem } = useAppSelector((state) => state.mealPlanItems);
   const { recipes } = useAppSelector((state) => state.recipes);
 
   return (
-    <Drawer direction="right">
+    <Drawer direction="right" open={isDrawerOpen} onOpenChange={handleDrawerClose}>
       <DrawerTrigger asChild>
         <Button>
           <Plus />
@@ -183,11 +184,21 @@ export const AddMealItem = () => {
         </div>
 
         <DrawerFooter>
+          {
+            selectedMealPlanItem && (
+              <Button variant="destructive" onClick={handleDeleteMealItem} className="w-full">
+                <Trash2 />
+                Eliminar comida
+              </Button>
+            )
+          }
           <Button onClick={handleBtnSubmitClick} className="w-full">
+            <Plus />
             Guardar
           </Button>
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
+              <X />
               Cancelar
             </Button>
           </DrawerClose>

@@ -1,0 +1,18 @@
+export const CALENDAR_MESSAGES = {
+  allDay: "Todo el día",
+  previous: "Anterior",
+  next: "Siguiente",
+  today: "Hoy",
+  month: "Mes",
+  week: "Semana",
+  day: "Día",
+  agenda: "Agenda",
+  date: "Fecha",
+  time: "Hora",
+  event: "Evento",
+  showMore: (total: number) => `+${total} más`,
+  noEventsInRange: "No hay eventos en este rango",
+  tomorrow: "Mañana",
+  yesterday: "Ayer",
+  work_week: "Semana laboral",
+} as const;

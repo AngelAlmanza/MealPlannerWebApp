@@ -3,3 +3,10 @@ export interface CreateMealItemDto {
   recipeId: string;
   date: string;
 }
+
+export interface UpdateMealItemDto {
+  id: number;
+  mealType: number;
+  recipeId: string;
+  date: string;
+}

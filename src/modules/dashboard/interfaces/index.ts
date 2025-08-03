@@ -32,3 +32,10 @@ export interface UnitMeasure {
   name:         string;
   abbreviation: string;
 }
+
+export interface MealPlanItemEvent {
+  id: number;
+  title: string;
+  start: Date;
+  end: Date;
+}

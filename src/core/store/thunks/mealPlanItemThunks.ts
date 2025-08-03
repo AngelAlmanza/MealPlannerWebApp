@@ -1,5 +1,5 @@
 import api from "@/core/lib/api";
-import { CreateMealItemDto } from "@/modules/dashboard/dtos";
+import { CreateMealItemDto, UpdateMealItemDto } from "@/modules/dashboard/dtos";
 import { MealPlanItem } from "@/modules/dashboard/interfaces";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -25,6 +25,35 @@ export const createMealPlanItem = createAsyncThunk(
     } catch (error) {
       console.error("Error creating meal item:", error);
       return rejectWithValue("Failed to create meal item");
+    }
+  }
+);
+
+export const updateMealPlanItem = createAsyncThunk(
+  "mealPlanItems/updateMealPlanItem",
+  async (data: UpdateMealItemDto, { rejectWithValue }) => {
+    try {
+      const response = await api.put<MealPlanItem>(
+        `/mealplanitem/${data.id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating meal item:", error);
+      return rejectWithValue("Failed to update meal item");
+    }
+  }
+);
+
+export const deleteMealPlanItem = createAsyncThunk(
+  "mealPlanItems/deleteMealPlanItem",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await api.delete(`/mealplanitem/${id}`);
+      return id; // Return the ID of the deleted item
+    } catch (error) {
+      console.error("Error deleting meal item:", error);
+      return rejectWithValue("Failed to delete meal item");
     }
   }
 );
