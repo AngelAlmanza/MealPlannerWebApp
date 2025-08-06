@@ -3,14 +3,16 @@ import { setIsDrawerOpen, setSelectedMealPlanItem } from "@/core/store/slices";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { MealPlanItemEvent } from "../interfaces";
+import { View } from "react-big-calendar";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export const useCalendar = () => {
   const { mealPlanItems } = useAppSelector((state) => state.mealPlanItems);
+  const [currentView, setCurrentView] = useState<View>("month");
   const dispatch = useAppDispatch();
 
   const events = useMemo(() => {
@@ -33,5 +35,14 @@ export const useCalendar = () => {
     }
   }, [dispatch, mealPlanItems]);
 
-  return { events, handleSelectEvent };
+  const handleViewChange = useCallback((view: View) => {
+    setCurrentView(view);
+  }, []);
+
+  return {
+    events,
+    handleSelectEvent,
+    currentView,
+    handleViewChange
+  };
 };
