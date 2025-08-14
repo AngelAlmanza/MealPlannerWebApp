@@ -32,11 +32,11 @@ function RecipesPage() {
       )
     },
     {
-      accessorKey: "description",
-      header: "Descripción",
+      accessorKey: "instructions",
+      header: "Instrucciones",
       cell: ({ row }) => (
         <div className="flex items-center gap-2 text-wrap break-words text-ellipsis">
-          {row.getValue("description")}
+          {row.getValue("instructions")}
         </div>
       )
     },

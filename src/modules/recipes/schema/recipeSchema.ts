@@ -10,10 +10,10 @@ export const recipeSchema = z.object({
     .string()
     .min(3, "El nombre es requerido, debe tener al menos 3 caracteres")
     .max(100, "El nombre debe tener menos de 100 caracteres"),
-  description: z
+  instructions: z
     .string()
-    .min(10, "La descripción es requerida, debe tener al menos 10 caracteres")
-    .max(1000, "La descripción debe tener menos de 1000 caracteres"),
+    .min(10, "La instrucción es requerida, debe tener al menos 10 caracteres")
+    .max(1000, "La instrucción debe tener menos de 1000 caracteres"),
   url: z.string().url("URL inválida").optional().or(z.literal("")),
   servings: z
     .number()

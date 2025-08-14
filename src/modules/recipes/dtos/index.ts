@@ -1,6 +1,6 @@
 export interface CreateRecipeDto {
   name: string;
-  description: string;
+  instructions: string;
   servings: number;
   url: string | null;
   ingredients: { ingredientId: number; quantity: number }[];
@@ -9,7 +9,7 @@ export interface CreateRecipeDto {
 export interface UpdateRecipeDto {
   id: number;
   name: string;
-  description: string;
+  instructions: string;
   servings: number;
   url: string | null;
   ingredients: { ingredientId: number; quantity: number }[];

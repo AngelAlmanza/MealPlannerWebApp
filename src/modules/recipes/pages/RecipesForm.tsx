@@ -100,12 +100,12 @@ function RecipesForm() {
           </div>
           <FormField
             control={form.control}
-            name="description"
+            name="instructions"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Descripción</FormLabel>
+                <FormLabel>Instrucciones</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Descripción de la receta" {...field} />
+                  <Textarea placeholder="Instrucciones de la receta" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

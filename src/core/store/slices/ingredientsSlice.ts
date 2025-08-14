@@ -42,7 +42,9 @@ export const IngredientsSlice = createSlice({
     });
     builder.addCase(getIngredients.fulfilled, (state, action) => {
       state.isIngredientsLoading = false;
-      state.ingredients = action.payload;
+      // Sort ingredients by name ascending
+      const sortedIngredients = action.payload.sort((a, b) => a.name.localeCompare(b.name));
+      state.ingredients = sortedIngredients;
     });
 
     builder.addCase(createIngredient.pending, (state) => {

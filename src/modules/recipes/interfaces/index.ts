@@ -3,7 +3,7 @@ import { Ingredient } from "@/modules/ingredients/interfaces";
 export interface Recipe {
   id: number;
   name: string;
-  description: string;
+  instructions: string;
   servings: number;
   url: string | null;
   ingredients: RecipeIngredients[];

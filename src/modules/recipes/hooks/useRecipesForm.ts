@@ -19,7 +19,7 @@ export const useRecipesForm = () => {
     resolver: zodResolver(recipeSchema),
     defaultValues: {
       name: "",
-      description: "",
+      instructions: "",
       servings: 0,
       url: "",
       ingredients: [],
@@ -41,7 +41,7 @@ export const useRecipesForm = () => {
         updateRecipe({
           id: selectedRecipe.id,
           name: data.name,
-          description: data.description,
+          instructions: data.instructions,
           servings: data.servings,
           url: data.url || null,
           ingredients: data.ingredients?.map((ingredient) => ({
@@ -54,7 +54,7 @@ export const useRecipesForm = () => {
       dispatch(
         createRecipe({
           name: data.name,
-          description: data.description,
+          instructions: data.instructions,
           servings: data.servings,
           url: data.url || null,
           ingredients: data.ingredients?.map((ingredient) => ({
@@ -75,7 +75,7 @@ export const useRecipesForm = () => {
     if (selectedRecipe) {
       form.reset({
         name: selectedRecipe.name,
-        description: selectedRecipe.description,
+        instructions: selectedRecipe.instructions,
         servings: selectedRecipe.servings,
         url: selectedRecipe.url || "",
         ingredients: selectedRecipe.ingredients.map((ingredient) => ({
